@@ -1,0 +1,1785 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ram Gheewala | Computing Professional & Systems Engineer</title>
+    <meta
+      name="description"
+      content="Portfolio of Ram Gheewala - Backend Engineer specializing in ASP.NET Core, High-Throughput Payment Gateways, and Distributed Systems Architecture."
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              heading: ["Space Grotesk", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+            colors: {
+              brand: {
+                bg: "#07090e",
+                surface: "#0e121a",
+                card: "#141a24",
+                border: "#202b3c",
+                cyan: "#00f0ff",
+                blue: "#3b82f6",
+                purple: "#8b5cf6",
+                emerald: "#10b981",
+              },
+            },
+            animation: {
+              "pulse-glow": "pulseGlow 4s infinite alternate",
+              "spin-slow": "spin 20s linear infinite",
+              float: "float 6s ease-in-out infinite",
+            },
+            keyframes: {
+              pulseGlow: {
+                "0%": { opacity: "0.3", transform: "scale(0.98)" },
+                "100%": { opacity: "0.7", transform: "scale(1.02)" },
+              },
+              float: {
+                "0%, 100%": { transform: "translateY(0px)" },
+                "50%": { transform: "translateY(-12px)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+      /* Custom Custom Scrollbar & Glassmorphism Utilities */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #07090e;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #1e293b;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #00f0ff;
+      }
+
+      .glass-panel {
+        background: rgba(14, 18, 26, 0.75);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .glass-card {
+        background: linear-gradient(
+          135deg,
+          rgba(20, 26, 36, 0.8) 0%,
+          rgba(14, 18, 26, 0.6) 100%
+        );
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .glass-card:hover {
+        border-color: rgba(0, 240, 255, 0.3);
+        box-shadow: 0 10px 30px -10px rgba(0, 240, 255, 0.15);
+        transform: translateY(-4px);
+      }
+
+      .text-gradient-cyan {
+        background: linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #a5f3fc 50%,
+          #00f0ff 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .text-gradient-blue {
+        background: linear-gradient(
+          135deg,
+          #00f0ff 0%,
+          #3b82f6 50%,
+          #8b5cf6 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* Tactical Haptic Pulsing Effect */
+      .haptic-pulse {
+        position: relative;
+      }
+      .haptic-pulse::after {
+        content: "";
+        position: absolute;
+        inset: -4px;
+        border-radius: inherit;
+        border: 1px solid #00f0ff;
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+      .haptic-pulse:active::after {
+        inset: -8px;
+        opacity: 0.8;
+        transition: 0s;
+      }
+
+      /* Canvas Overlay */
+      #bg-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* Custom Cursor */
+      #custom-cursor {
+        pointer-events: none;
+        position: fixed;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition:
+          width 0.2s,
+          height 0.2s,
+          background-color 0.2s,
+          border-color 0.2s;
+      }
+
+      /* Hide custom cursor on touch devices */
+      @media (pointer: coarse) {
+        #custom-cursor {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="bg-brand-bg text-slate-200 font-sans selection:bg-cyan-500 selection:text-black overflow-x-hidden relative"
+  >
+    <!-- Interactive Ambient Canvas Background -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Custom Cursor Ring -->
+    <div
+      id="custom-cursor"
+      class="w-8 h-8 rounded-full border border-cyan-400/50 mix-blend-difference hidden md:block"
+    >
+      <div
+        class="w-1.5 h-1.5 bg-cyan-400 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+      ></div>
+    </div>
+
+    <!-- Top Recruiter Action Banner / Quick Scan Bar -->
+    <div
+      class="relative z-50 bg-slate-950/90 border-b border-slate-800/80 px-4 py-2 text-xs font-mono"
+    >
+      <div
+        class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2"
+      >
+        <div class="flex items-center gap-2 text-slate-400">
+          <span
+            class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"
+          ></span>
+          <span class="text-slate-300 font-semibold"
+            >RECRUITER QUICK SCAN:</span
+          >
+          <span
+            >Full-Stack Software Engineer | 2+ Yrs Experience | ASP.NET Core,
+            .NET 8, Payment Gateways, Angular</span
+          >
+        </div>
+        <div class="flex items-center gap-4 text-cyan-400">
+          <a
+            href="mailto:gheewalaram@gmail.com"
+            class="hover:underline flex items-center gap-1"
+          >
+            <i data-lucide="mail" class="w-3.5 h-3.5"></i> gheewalaram@gmail.com
+          </a>
+          <!-- <a href="tel:+916356155335" class="hover:underline flex items-center gap-1 hidden sm:flex">
+                    <i data-lucide="phone" class="w-3.5 h-3.5"></i> +91 6356155335
+                </a> -->
+          <a
+            href="https://www.linkedin.com/in/ram-gheewala"
+            target="_blank"
+            rel="noopener"
+            class="hover:underline flex items-center gap-1"
+          >
+            <i data-lucide="linkedin" class="w-3.5 h-3.5"></i> LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky Glass Navigation Header -->
+    <header
+      class="sticky top-0 z-40 w-full px-4 sm:px-8 py-3 transition-all duration-300"
+      id="main-header"
+    >
+      <div
+        class="max-w-7xl mx-auto glass-panel rounded-2xl px-6 py-3 flex items-center justify-between"
+      >
+        <a href="#hero" class="flex items-center gap-3 group">
+          <div
+            class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 flex items-center justify-center text-black font-heading font-bold text-base shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform"
+          >
+            RG
+          </div>
+          <div>
+            <span
+              class="font-heading font-bold text-white text-base tracking-tight block leading-tight group-hover:text-cyan-400 transition-colors"
+              >RAM GHEEWALA</span
+            >
+            <span
+              class="text-[10px] font-mono text-cyan-400/80 uppercase tracking-widest block"
+              >Systems & Software</span
+            >
+          </div>
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <nav
+          class="hidden lg:flex items-center gap-6 text-xs font-mono uppercase tracking-wider text-slate-300"
+        >
+          <a
+            href="#about"
+            class="hover:text-cyan-400 transition-colors py-1 hover:border-b hover:border-cyan-400"
+            >About</a
+          >
+          <a
+            href="#journey"
+            class="hover:text-cyan-400 transition-colors py-1 hover:border-b hover:border-cyan-400"
+            >Journey</a
+          >
+          <a
+            href="#experience"
+            class="hover:text-cyan-400 transition-colors py-1 hover:border-b hover:border-cyan-400"
+            >Experience</a
+          >
+          <a
+            href="#skills"
+            class="hover:text-cyan-400 transition-colors py-1 hover:border-b hover:border-cyan-400"
+            >Skills Matrix</a
+          >
+          <a
+            href="#projects"
+            class="hover:text-cyan-400 transition-colors py-1 hover:border-b hover:border-cyan-400"
+            >Projects</a
+          >
+          <a
+            href="#next-chapter"
+            class="hover:text-cyan-400 transition-colors py-1 hover:border-b hover:border-cyan-400"
+            >Next Chapter</a
+          >
+          <a
+            href="#mindset"
+            class="hover:text-cyan-400 transition-colors py-1 hover:border-b hover:border-cyan-400"
+            >Mindset</a
+          >
+        </nav>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-3">
+          <a
+            href="#contact"
+            class="haptic-pulse px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-heading font-semibold text-xs tracking-wider uppercase hover:shadow-lg hover:shadow-cyan-500/25 transition-all"
+          >
+            Connect
+          </a>
+
+          <!-- Mobile Menu Button -->
+          <button
+            id="mobile-menu-btn"
+            class="lg:hidden p-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white"
+            aria-label="Toggle Navigation"
+          >
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden lg:hidden max-w-7xl mx-auto mt-2 glass-panel rounded-2xl p-6 space-y-4 text-sm font-mono uppercase tracking-wider text-slate-300"
+      >
+        <a href="#about" class="block hover:text-cyan-400 py-1">About</a>
+        <a href="#journey" class="block hover:text-cyan-400 py-1">Journey</a>
+        <a href="#experience" class="block hover:text-cyan-400 py-1"
+          >Experience</a
+        >
+        <a href="#skills" class="block hover:text-cyan-400 py-1"
+          >Skills Matrix</a
+        >
+        <a href="#projects" class="block hover:text-cyan-400 py-1">Projects</a>
+        <a href="#next-chapter" class="block hover:text-cyan-400 py-1"
+          >Next Chapter</a
+        >
+        <a href="#mindset" class="block hover:text-cyan-400 py-1">Mindset</a>
+        <a href="#contact" class="block hover:text-cyan-400 py-1">Contact</a>
+      </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section
+      id="hero"
+      class="relative z-10 min-h-[90vh] flex items-center justify-center px-4 sm:px-8 py-16 max-w-7xl mx-auto"
+    >
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
+        <!-- Left Hero Content -->
+        <div class="lg:col-span-7 space-y-6">
+          <!-- Status Badge -->
+          <div
+            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/50 border border-cyan-800/60 text-cyan-400 text-xs font-mono"
+          >
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+            <span
+              >Full Stack Engineer | Junior .NET Developer @ VSI Infotech</span
+            >
+          </div>
+
+          <!-- Main Name Header -->
+          <div>
+            <h1
+              class="text-4xl sm:text-6xl xl:text-7xl font-heading font-extrabold tracking-tight text-white uppercase leading-none"
+            >
+              RAM <br class="hidden sm:block" />
+              <span class="text-gradient-cyan">GHEEWALA</span>
+            </h1>
+            <p
+              class="mt-4 text-xl sm:text-2xl font-heading font-semibold text-slate-300"
+            >
+              Computing Professional Building What's Next in High-Throughput &
+              Resilient Systems
+            </p>
+          </div>
+
+          <!-- Positioning Narrative -->
+          <p class="text-slate-400 text-base leading-relaxed max-w-2xl">
+            Full-Stack & Backend Developer with 2+ years of hands-on expertise
+            building production-grade payment gateway infrastructures in ASP.NET
+            Core (.NET 8). Proven track record shipping multi-region
+            pay-in/payout flows, optimizing database query latency by 40%, and
+            designing decoupled Clean Architecture & CQRS systems.
+          </p>
+
+          <!-- Key Metrics Bar -->
+          <div
+            class="grid grid-cols-3 gap-4 pt-2 border-y border-slate-800/80 py-4 max-w-xl"
+          >
+            <div>
+              <span
+                class="text-2xl sm:text-3xl font-heading font-bold text-cyan-400 block"
+                >50,000+</span
+              >
+              <span class="text-[11px] font-mono text-slate-400 uppercase"
+                >Daily Transactions</span
+              >
+            </div>
+            <div>
+              <span
+                class="text-2xl sm:text-3xl font-heading font-bold text-blue-400 block"
+                >40%</span
+              >
+              <span class="text-[11px] font-mono text-slate-400 uppercase"
+                >Latency Reduction</span
+              >
+            </div>
+            <div>
+              <span
+                class="text-2xl sm:text-3xl font-heading font-bold text-emerald-400 block"
+                >2+ Yrs</span
+              >
+              <span class="text-[11px] font-mono text-slate-400 uppercase"
+                >Fintech & Backend</span
+              >
+            </div>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <a
+              href="#journey"
+              class="haptic-pulse px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-black font-heading font-bold text-sm tracking-wide uppercase flex items-center gap-2 shadow-xl shadow-cyan-500/20 hover:scale-105 transition-all"
+            >
+              <span>Explore My Journey</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+
+            <a
+              href="#contact"
+              class="haptic-pulse px-6 py-3.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-500/50 text-slate-200 font-heading font-semibold text-sm tracking-wide uppercase flex items-center gap-2 hover:bg-slate-800 transition-all"
+            >
+              <i data-lucide="mail" class="w-4 h-4 text-cyan-400"></i>
+              <span>Let's Connect</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Hero Interactive 3D Visual Core -->
+        <div class="lg:col-span-5 flex justify-center items-center">
+          <div
+            class="relative w-72 h-72 sm:w-96 sm:h-96 flex items-center justify-center"
+          >
+            <!-- Decorative Radial Lights -->
+            <div
+              class="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 via-blue-600/10 to-transparent rounded-full blur-3xl animate-pulse-glow"
+            ></div>
+
+            <!-- Rotating Orbital Circles -->
+            <div
+              class="absolute inset-0 rounded-full border border-dashed border-cyan-500/30 animate-spin-slow"
+            ></div>
+            <div
+              class="absolute inset-6 rounded-full border border-cyan-400/20 animate-spin-slow"
+              style="animation-direction: reverse; animation-duration: 15s"
+            ></div>
+            <div
+              class="absolute inset-12 rounded-full border border-blue-500/20 animate-spin-slow"
+              style="animation-duration: 25s"
+            ></div>
+
+            <!-- Center Computational Cube / Core Box -->
+            <div
+              id="interactive-core"
+              class="relative z-20 w-56 h-56 rounded-3xl glass-card p-6 flex flex-col items-center justify-center text-center shadow-2xl shadow-cyan-500/20 cursor-pointer group hover:scale-105 transition-all duration-500 border border-cyan-500/40"
+            >
+              <div
+                class="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform"
+              >
+                <i data-lucide="cpu" class="w-6 h-6 animate-pulse"></i>
+              </div>
+              <span
+                class="text-[10px] font-mono text-cyan-400 uppercase tracking-widest block"
+                >Core Architecture</span
+              >
+              <h3 class="text-lg font-heading font-bold text-white mt-1">
+                ASP.NET Core .NET 8
+              </h3>
+              <p class="text-xs text-slate-400 mt-2 font-mono">
+                CQRS • Hangfire • Clean Architecture • SQL Performance
+              </p>
+
+              <div
+                class="mt-3 inline-flex items-center gap-1 text-[10px] font-mono text-emerald-400 bg-emerald-950/40 px-2.5 py-1 rounded-md border border-emerald-800/50"
+              >
+                <i data-lucide="shield-check" class="w-3 h-3"></i> Payment
+                Orchestration Engine
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 01: ABOUT & NARRATIVE STORY -->
+    <section
+      id="about"
+      class="relative z-10 py-24 px-4 sm:px-8 max-w-7xl mx-auto border-t border-slate-800/80"
+    >
+      <div class="space-y-4 mb-12">
+        <div
+          class="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-widest"
+        >
+          <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+          <span>01. Career Evolution</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-heading font-extrabold text-white">
+          A Human Navigating the Future of Computing
+        </h2>
+        <p class="text-slate-400 text-sm max-w-2xl">
+          How rigorous academic foundations evolved into high-volume backend
+          engineering and financial software orchestration.
+        </p>
+      </div>
+
+      <!-- Visual Story Layout -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Phase 1 -->
+        <div
+          class="glass-card p-8 rounded-3xl space-y-4 relative overflow-hidden group"
+        >
+          <div
+            class="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/30 text-blue-400 flex items-center justify-center"
+          >
+            <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <span
+              class="text-[10px] font-mono text-blue-400 uppercase tracking-widest block"
+              >Step 1 • Academic Rigor</span
+            >
+            <h3 class="text-xl font-heading font-bold text-white mt-1">
+              Foundational Mastery
+            </h3>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Earned a Master of Science in IT from <strong>DA-IICT</strong> and a
+            BCA from <strong>VNSGU</strong>. Grounded deeply in computer science
+            fundamentals, relational database theory, object-oriented design,
+            and algorithms.
+          </p>
+          <div
+            class="pt-2 text-[11px] font-mono text-slate-500 border-t border-slate-800"
+          >
+            DA-IICT (2022-2024) • VNSGU (2019-2022)
+          </div>
+        </div>
+
+        <!-- Phase 2 -->
+        <div
+          class="glass-card p-8 rounded-3xl space-y-4 relative overflow-hidden group border-cyan-500/30"
+        >
+          <div
+            class="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center"
+          >
+            <i data-lucide="database" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <span
+              class="text-[10px] font-mono text-cyan-400 uppercase tracking-widest block"
+              >Step 2 • Industry Entry</span
+            >
+            <h3 class="text-xl font-heading font-bold text-white mt-1">
+              Backend & API Refinement
+            </h3>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Interned at Toshal Infotech and built backend services at Tenacious
+            Techies for the FoodChow SaaS platform. Unified delivery providers
+            (Porter, Uber Direct) and reduced analytics reporting latency from
+            12s to &lt;2s.
+          </p>
+          <div
+            class="pt-2 text-[11px] font-mono text-slate-500 border-t border-slate-800"
+          >
+            Toshal Infotech • Tenacious Techies
+          </div>
+        </div>
+
+        <!-- Phase 3 -->
+        <div
+          class="glass-card p-8 rounded-3xl space-y-4 relative overflow-hidden group"
+        >
+          <div
+            class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center"
+          >
+            <i data-lucide="zap" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <span
+              class="text-[10px] font-mono text-emerald-400 uppercase tracking-widest block"
+              >Step 3 • High-Scale Fintech</span
+            >
+            <h3 class="text-xl font-heading font-bold text-white mt-1">
+              Distributed Gateways
+            </h3>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Currently Junior .NET Developer at VSI Infotech LLP, architecting
+            pay-in/payout flows processing 50,000+ txns/day across Stripe,
+            Razorpay, and Flutterwave using Clean Architecture, CQRS, and
+            Hangfire.
+          </p>
+          <div
+            class="pt-2 text-[11px] font-mono text-slate-500 border-t border-slate-800"
+          >
+            VSI Infotech LLP (Jun 2025–Present)
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 02: SPATIAL CAREER JOURNEY TIMELINE -->
+    <section
+      id="journey"
+      class="relative z-10 py-24 px-4 sm:px-8 max-w-7xl mx-auto border-t border-slate-800/80"
+    >
+      <div class="space-y-4 mb-12">
+        <div
+          class="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-widest"
+        >
+          <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+          <span>02. Interactive Career Timeline</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-heading font-extrabold text-white">
+          Career Trajectory & Roles
+        </h2>
+        <p class="text-slate-400 text-sm max-w-2xl">
+          Select a stage to examine responsibilities, technical stacks, and
+          factual deliverables.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Timeline Selector List (Left) -->
+        <div class="lg:col-span-5 space-y-4">
+          <!-- Role Node 1 -->
+          <div
+            onclick="selectRole(0)"
+            id="role-node-0"
+            class="role-selector-card glass-card p-6 rounded-2xl cursor-pointer border-cyan-500/80 shadow-lg shadow-cyan-500/10"
+          >
+            <div
+              class="flex items-center justify-between text-xs font-mono text-cyan-400 mb-1"
+            >
+              <span>Jun 2025 – Present</span>
+              <span
+                class="bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800"
+                >Full-time</span
+              >
+            </div>
+            <h3 class="text-lg font-heading font-bold text-white">
+              Junior .NET Developer
+            </h3>
+            <p class="text-xs text-slate-400 font-mono">
+              VSI Infotech LLP • Surat, India
+            </p>
+          </div>
+
+          <!-- Role Node 2 -->
+          <div
+            onclick="selectRole(1)"
+            id="role-node-1"
+            class="role-selector-card glass-card p-6 rounded-2xl cursor-pointer opacity-70 hover:opacity-100"
+          >
+            <div
+              class="flex items-center justify-between text-xs font-mono text-slate-400 mb-1"
+            >
+              <span>Jan 2025 – May 2025</span>
+              <span
+                class="bg-slate-900 px-2 py-0.5 rounded border border-slate-800"
+                >Full-time</span
+              >
+            </div>
+            <h3 class="text-lg font-heading font-bold text-white">
+              ASP.NET Developer
+            </h3>
+            <p class="text-xs text-slate-400 font-mono">
+              Tenacious Techies • Surat, India
+            </p>
+          </div>
+
+          <!-- Role Node 3 -->
+          <div
+            onclick="selectRole(2)"
+            id="role-node-2"
+            class="role-selector-card glass-card p-6 rounded-2xl cursor-pointer opacity-70 hover:opacity-100"
+          >
+            <div
+              class="flex items-center justify-between text-xs font-mono text-slate-400 mb-1"
+            >
+              <span>Jan 2024 – Dec 2024</span>
+              <span
+                class="bg-slate-900 px-2 py-0.5 rounded border border-slate-800"
+                >Internship</span
+              >
+            </div>
+            <h3 class="text-lg font-heading font-bold text-white">
+              ASP.NET Core Intern
+            </h3>
+            <p class="text-xs text-slate-400 font-mono">
+              Toshal Infotech • Surat, India
+            </p>
+          </div>
+        </div>
+
+        <!-- Role Detail Dynamic Display Panel (Right) -->
+        <div class="lg:col-span-7">
+          <div
+            id="role-detail-panel"
+            class="glass-card p-8 rounded-3xl border border-slate-700/80 space-y-6"
+          >
+            <!-- Dynamic Javascript Content Injected Here -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 03: DETAILED EXPERIENCE & ACHIEVEMENTS -->
+    <section
+      id="experience"
+      class="relative z-10 py-24 px-4 sm:px-8 max-w-7xl mx-auto border-t border-slate-800/80"
+    >
+      <div class="space-y-4 mb-12">
+        <div
+          class="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-widest"
+        >
+          <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+          <span>03. Measurable Impact</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-heading font-extrabold text-white">
+          Engineered Performance & Reliability
+        </h2>
+        <p class="text-slate-400 text-sm max-w-2xl">
+          Factual accomplishments verified directly from Ram Gheewala's
+          professional record.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Metric Card 1 -->
+        <div class="glass-card p-6 rounded-2xl space-y-4">
+          <div
+            class="text-3xl font-heading font-bold text-cyan-400 flex items-center justify-between"
+          >
+            <span>50,000+</span>
+            <i data-lucide="activity" class="w-6 h-6 text-cyan-500/50"></i>
+          </div>
+          <h3 class="text-base font-heading font-bold text-white">
+            Daily Pay-In / Payout Gateway
+          </h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Built and maintained multi-region pay-in/payout gateway services in
+            ASP.NET Core (.NET 8) processing over 50,000 transactions daily at
+            VSI Infotech LLP.
+          </p>
+          <div class="text-[10px] font-mono text-cyan-400/80">
+            ASP.NET Core • .NET 8 • Multi-Region
+          </div>
+        </div>
+
+        <!-- Metric Card 2 -->
+        <div class="glass-card p-6 rounded-2xl space-y-4">
+          <div
+            class="text-3xl font-heading font-bold text-blue-400 flex items-center justify-between"
+          >
+            <span>~30%</span>
+            <i data-lucide="shield-alert" class="w-6 h-6 text-blue-500/50"></i>
+          </div>
+          <h3 class="text-base font-heading font-bold text-white">
+            MTTR Incident Reduction
+          </h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Diagnosed and resolved high-severity production incidents across
+            deposits, webhooks, callbacks, and refund pipelines, cutting Mean
+            Time to Resolution by ~30%.
+          </p>
+          <div class="text-[10px] font-mono text-blue-400/80">
+            Production Incidents • Root-Cause Analysis
+          </div>
+        </div>
+
+        <!-- Metric Card 3 -->
+        <div class="glass-card p-6 rounded-2xl space-y-4">
+          <div
+            class="text-3xl font-heading font-bold text-emerald-400 flex items-center justify-between"
+          >
+            <span>40%</span>
+            <i data-lucide="gauge" class="w-6 h-6 text-emerald-500/50"></i>
+          </div>
+          <h3 class="text-base font-heading font-bold text-white">
+            Analytics Query Latency Cut
+          </h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Designed relational database indexing strategies and optimized
+            complex SQL Server stored procedures powering analytics dashboards.
+          </p>
+          <div class="text-[10px] font-mono text-emerald-400/80">
+            SQL Server • Index Tuning • Stored Procedures
+          </div>
+        </div>
+
+        <!-- Metric Card 4 -->
+        <div class="glass-card p-6 rounded-2xl space-y-4">
+          <div
+            class="text-3xl font-heading font-bold text-purple-400 flex items-center justify-between"
+          >
+            <span>12s → &lt;2s</span>
+            <i data-lucide="zap" class="w-6 h-6 text-purple-500/50"></i>
+          </div>
+          <h3 class="text-base font-heading font-bold text-white">
+            Admin Reporting Optimization
+          </h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Rewrote heavy administrative reporting queries on the FoodChow food
+            delivery platform at Tenacious Techies, accelerating execution times
+            from 12s to under 2s.
+          </p>
+          <div class="text-[10px] font-mono text-purple-400/80">
+            Tenacious Techies • FoodChow SaaS
+          </div>
+        </div>
+
+        <!-- Metric Card 5 -->
+        <div class="glass-card p-6 rounded-2xl space-y-4">
+          <div
+            class="text-3xl font-heading font-bold text-cyan-400 flex items-center justify-between"
+          >
+            <span>Unified API</span>
+            <i data-lucide="truck" class="w-6 h-6 text-cyan-500/50"></i>
+          </div>
+          <h3 class="text-base font-heading font-bold text-white">
+            Delivery Provider Abstraction
+          </h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Integrated Porter, Pidge, and Uber Direct delivery providers behind
+            a single unified abstraction layer with real-time order tracking
+            status updates.
+          </p>
+          <div class="text-[10px] font-mono text-cyan-400/80">
+            Porter • Pidge • Uber Direct
+          </div>
+        </div>
+
+        <!-- Metric Card 6 -->
+        <div class="glass-card p-6 rounded-2xl space-y-4">
+          <div
+            class="text-3xl font-heading font-bold text-blue-400 flex items-center justify-between"
+          >
+            <span>Automated</span>
+            <i data-lucide="refresh-cw" class="w-6 h-6 text-blue-500/50"></i>
+          </div>
+          <h3 class="text-base font-heading font-bold text-white">
+            Payout-Retry & Batch Jobs
+          </h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Implemented .NET background services for automated payout retry and
+            settlement batch processing with idempotency and real-time failure
+            alerting.
+          </p>
+          <div class="text-[10px] font-mono text-blue-400/80">
+            Hangfire • .NET Background Services
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 04: SKILLS & TECHNOLOGY CONSTELLATION -->
+    <section
+      id="skills"
+      class="relative z-10 py-24 px-4 sm:px-8 max-w-7xl mx-auto border-t border-slate-800/80"
+    >
+      <div class="space-y-4 mb-12">
+        <div
+          class="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-widest"
+        >
+          <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+          <span>04. Technology Constellation</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-heading font-extrabold text-white">
+          Technical Competencies
+        </h2>
+        <p class="text-slate-400 text-sm max-w-2xl">
+          Structured skill groupings verified against Ram Gheewala's direct
+          experience.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Category 1 -->
+        <div class="glass-card p-6 rounded-2xl space-y-4">
+          <h3
+            class="text-sm font-mono uppercase tracking-wider text-cyan-400 flex items-center gap-2"
+          >
+            <i data-lucide="code" class="w-4 h-4"></i> Languages & Frameworks
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >C#</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >ASP.NET Core</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >.NET Web API</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >Minimal APIs</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >EF Core</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >Dapper</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >TypeScript</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >Angular</span
+            >
+          </div>
+        </div>
+
+        <!-- Category 2 -->
+        <div class="glass-card p-6 rounded-2xl space-y-4">
+          <h3
+            class="text-sm font-mono uppercase tracking-wider text-blue-400 flex items-center gap-2"
+          >
+            <i data-lucide="database" class="w-4 h-4"></i> Databases & Caching
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >SQL Server</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >PostgreSQL</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >Redis</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >Stored Procedures</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >Indexing Tuning</span
+            >
+          </div>
+        </div>
+
+        <!-- Category 3 -->
+        <div class="glass-card p-6 rounded-2xl space-y-4">
+          <h3
+            class="text-sm font-mono uppercase tracking-wider text-emerald-400 flex items-center gap-2"
+          >
+            <i data-lucide="layers" class="w-4 h-4"></i> Architecture & Patterns
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >Clean Architecture</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >CQRS</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >SOLID Principles</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >REST APIs</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >JWT & OAuth 2.0</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >Rate Limiting</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >Idempotency</span
+            >
+          </div>
+        </div>
+
+        <!-- Category 4 -->
+        <div class="glass-card p-6 rounded-2xl space-y-4">
+          <h3
+            class="text-sm font-mono uppercase tracking-wider text-purple-400 flex items-center gap-2"
+          >
+            <i data-lucide="credit-card" class="w-4 h-4"></i> Payment Gateway
+            Integrations
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >Stripe</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >Razorpay</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >RazorpayX</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >Flutterwave</span
+            >
+          </div>
+        </div>
+
+        <!-- Category 5 -->
+        <div class="glass-card p-6 rounded-2xl space-y-4">
+          <h3
+            class="text-sm font-mono uppercase tracking-wider text-cyan-400 flex items-center gap-2"
+          >
+            <i data-lucide="cpu" class="w-4 h-4"></i> Background Processing &
+            Tooling
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >Hangfire</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >.NET Background Services</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >Git</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >Serilog</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >Postman</span
+            >
+          </div>
+        </div>
+
+        <!-- Category 6 -->
+        <div class="glass-card p-6 rounded-2xl space-y-4">
+          <h3
+            class="text-sm font-mono uppercase tracking-wider text-emerald-400 flex items-center gap-2"
+          >
+            <i data-lucide="sparkles" class="w-4 h-4"></i> AI-Assisted Workflows
+            & Cloud
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >ChatGPT</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >Claude</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >Cursor</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >GitHub Copilot</span
+            >
+            <span
+              class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+              >Azure AZ-900 (In Progress)</span
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 05: KEY PROJECT CASE STUDY -->
+    <section
+      id="projects"
+      class="relative z-10 py-24 px-4 sm:px-8 max-w-7xl mx-auto border-t border-slate-800/80"
+    >
+      <div class="space-y-4 mb-12">
+        <div
+          class="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-widest"
+        >
+          <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+          <span>05. Project Architecture</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-heading font-extrabold text-white">
+          Payment Orchestration API Engine
+        </h2>
+        <p class="text-slate-400 text-sm max-w-2xl">
+          A deep dive into Ram Gheewala's signature backend project.
+        </p>
+      </div>
+
+      <div
+        class="glass-card p-8 sm:p-10 rounded-3xl border border-cyan-500/30 space-y-8"
+      >
+        <div
+          class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-6"
+        >
+          <div>
+            <span
+              class="text-xs font-mono text-cyan-400 uppercase tracking-widest block"
+              >Core Architecture Case Study</span
+            >
+            <h3
+              class="text-2xl sm:text-3xl font-heading font-bold text-white mt-1"
+            >
+              Multi-Provider Payment Orchestrator
+            </h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span
+              class="px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-800 text-cyan-300 text-xs font-mono"
+              >.NET 8</span
+            >
+            <span
+              class="px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-slate-300 text-xs font-mono"
+              >CQRS</span
+            >
+            <span
+              class="px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-slate-300 text-xs font-mono"
+              >Hangfire</span
+            >
+            <span
+              class="px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-slate-300 text-xs font-mono"
+              >Redis</span
+            >
+            <span
+              class="px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-slate-300 text-xs font-mono"
+              >PostgreSQL</span
+            >
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="space-y-3">
+            <h4
+              class="text-xs font-mono text-cyan-400 uppercase tracking-wider flex items-center gap-2"
+            >
+              <i data-lucide="alert-circle" class="w-4 h-4"></i> Problem Space
+            </h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Multi-provider payment operations require consistent failure
+              resilience, status tracking, and strict duplicate-prevention
+              across asynchronous callback channels and webhook retries.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h4
+              class="text-xs font-mono text-blue-400 uppercase tracking-wider flex items-center gap-2"
+            >
+              <i data-lucide="cpu" class="w-4 h-4"></i> System Architecture
+            </h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Engineered a unified payment orchestration layer with idempotent
+              abstraction over Stripe and Razorpay, utilizing Hangfire
+              background workers for exponential backoff retries and structured
+              logging via Serilog.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h4
+              class="text-xs font-mono text-emerald-400 uppercase tracking-wider flex items-center gap-2"
+            >
+              <i data-lucide="check-circle" class="w-4 h-4"></i> System Outcome
+            </h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Eliminated duplicate transactions via idempotency keys, ensured
+              complete end-to-end audit traceability, and achieved fail-over
+              reliability during upstream payment provider downtimes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 06: THE NEXT CHAPTER (CAREER TRANSITION / AMBITION) -->
+    <section
+      id="next-chapter"
+      class="relative z-10 py-24 px-4 sm:px-8 max-w-7xl mx-auto border-t border-slate-800/80"
+    >
+      <div class="space-y-4 mb-12">
+        <div
+          class="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-widest"
+        >
+          <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+          <span>06. Career Direction</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-heading font-extrabold text-white">
+          THE NEXT CHAPTER
+        </h2>
+        <p class="text-slate-400 text-sm max-w-2xl">
+          Advancing into complex distributed systems, cloud infrastructure, and
+          enterprise-grade payment networks.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div
+          class="glass-card p-8 rounded-3xl space-y-4 border-l-4 border-l-cyan-400"
+        >
+          <h3 class="text-xl font-heading font-bold text-white">
+            Why My Experience Provides Leverage
+          </h3>
+          <p class="text-slate-300 text-xs leading-relaxed">
+            Having spent over 2 years dealing directly with financial
+            transaction flows, payment webhooks, database query optimization,
+            and background job processing, I have developed a deep respect for
+            <strong>idempotency, system reliability, and failure modes</strong>.
+          </p>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            My background enables me to bridge high-level domain requirements
+            with deep database and backend mechanics — ensuring that new
+            engineering initiatives are scalable, maintainable, and resilient
+            from day one.
+          </p>
+        </div>
+
+        <div
+          class="glass-card p-8 rounded-3xl space-y-4 border-l-4 border-l-blue-500"
+        >
+          <h3 class="text-xl font-heading font-bold text-white">
+            Target Roles & Engineering Goals
+          </h3>
+          <ul class="space-y-3 text-xs text-slate-300">
+            <li class="flex items-start gap-2">
+              <i
+                data-lucide="check-circle-2"
+                class="w-4 h-4 text-cyan-400 shrink-0 mt-0.5"
+              ></i>
+              <span
+                ><strong>Backend & Distributed Systems Engineer:</strong>
+                Building high-throughput RESTful services and event-driven
+                architectures.</span
+              >
+            </li>
+            <li class="flex items-start gap-2">
+              <i
+                data-lucide="check-circle-2"
+                class="w-4 h-4 text-cyan-400 shrink-0 mt-0.5"
+              ></i>
+              <span
+                ><strong>Payment Infrastructure Specialist:</strong> Expanding
+                multi-region payment routing, settlement processing, and
+                reconciliation.</span
+              >
+            </li>
+            <li class="flex items-start gap-2">
+              <i
+                data-lucide="check-circle-2"
+                class="w-4 h-4 text-cyan-400 shrink-0 mt-0.5"
+              ></i>
+              <span
+                ><strong>Database & Cloud Performance Tuning:</strong>
+                Optimizing relational data stores (SQL Server / PostgreSQL) and
+                deepening Azure cloud mastery.</span
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 07: HOW I THINK / ENGINEERING PRINCIPLES -->
+    <section
+      id="mindset"
+      class="relative z-10 py-24 px-4 sm:px-8 max-w-7xl mx-auto border-t border-slate-800/80"
+    >
+      <div class="space-y-4 mb-12">
+        <div
+          class="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-widest"
+        >
+          <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+          <span>07. Mindset</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-heading font-extrabold text-white">
+          How I Think
+        </h2>
+        <p class="text-slate-400 text-sm max-w-2xl">
+          Core engineering principles guiding architectural decisions and daily
+          code craft.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass-card p-6 rounded-2xl space-y-3">
+          <div
+            class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center font-mono font-bold text-sm"
+          >
+            01
+          </div>
+          <h3 class="text-base font-heading font-bold text-white">
+            Idempotency & Precision
+          </h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Financial operations must guarantee that repeating a request yields
+            exact execution results without duplicate state mutation.
+          </p>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl space-y-3">
+          <div
+            class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center font-mono font-bold text-sm"
+          >
+            02
+          </div>
+          <h3 class="text-base font-heading font-bold text-white">
+            Data Access First
+          </h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Optimized indexing strategies and stored procedures deliver
+            exponential latency reductions over raw compute expansion.
+          </p>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl space-y-3">
+          <div
+            class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center font-mono font-bold text-sm"
+          >
+            03
+          </div>
+          <h3 class="text-base font-heading font-bold text-white">
+            Clean Architectural Boundaries
+          </h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Decouple core business rules from infrastructure details through
+            CQRS and SOLID principles to insulate core logic from external API
+            shifts.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 08: WHERE TECHNOLOGY IS GOING -->
+    <section
+      id="tech-horizon"
+      class="relative z-10 py-24 px-4 sm:px-8 max-w-7xl mx-auto border-t border-slate-800/80"
+    >
+      <div class="space-y-4 mb-12">
+        <div
+          class="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-widest"
+        >
+          <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+          <span>08. Technology Horizon</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-heading font-extrabold text-white">
+          WHERE TECHNOLOGY IS GOING
+        </h2>
+        <p class="text-slate-400 text-sm max-w-2xl">
+          Maintaining active awareness of modern IT trends while being
+          transparent about active expertise versus ongoing exploration.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div
+          class="glass-card p-8 rounded-3xl space-y-4 border-t-2 border-t-emerald-400"
+        >
+          <h3
+            class="text-lg font-heading font-bold text-emerald-400 flex items-center gap-2"
+          >
+            <i data-lucide="check-circle" class="w-5 h-5"></i> Technologies I
+            Work With
+          </h3>
+          <div class="space-y-2 text-xs text-slate-300">
+            <p>
+              • <strong>ASP.NET Core (.NET 8):</strong> RESTful APIs, Minimal
+              APIs, Background Services.
+            </p>
+            <p>
+              • <strong>Database Optimization:</strong> SQL Server, PostgreSQL,
+              Dapper ORM, Stored Procedures.
+            </p>
+            <p>
+              • <strong>Payment Ecosystems:</strong> Stripe, Razorpay,
+              RazorpayX, Flutterwave integrations.
+            </p>
+            <p>
+              • <strong>Asynchronous Pipelines:</strong> Redis caching, Hangfire
+              task queues, Serilog tracing.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="glass-card p-8 rounded-3xl space-y-4 border-t-2 border-t-cyan-400"
+        >
+          <h3
+            class="text-lg font-heading font-bold text-cyan-400 flex items-center gap-2"
+          >
+            <i data-lucide="compass" class="w-5 h-5"></i> Technologies I'm
+            Exploring
+          </h3>
+          <div class="space-y-2 text-xs text-slate-300">
+            <p>
+              • <strong>Microsoft Azure Cloud:</strong> Preparing for AZ-900
+              certification & cloud-native deployments.
+            </p>
+            <p>
+              • <strong>AI-Assisted Development:</strong> Integrating Cursor,
+              GitHub Copilot, and LLMs into backend workflows.
+            </p>
+            <p>
+              • <strong>Distributed Fault Tolerance:</strong> Resilient circuit
+              breakers, event-driven streaming, and edge caching.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 09: CONTACT / CALL TO ACTION -->
+    <section
+      id="contact"
+      class="relative z-10 py-24 px-4 sm:px-8 max-w-7xl mx-auto border-t border-slate-800/80"
+    >
+      <div
+        class="glass-card p-10 sm:p-16 rounded-3xl text-center space-y-8 relative overflow-hidden border border-cyan-500/30"
+      >
+        <div
+          class="absolute -top-24 -right-24 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"
+        ></div>
+
+        <div class="max-w-2xl mx-auto space-y-4">
+          <span
+            class="text-xs font-mono text-cyan-400 uppercase tracking-widest block"
+            >Let's Connect</span
+          >
+          <h2
+            class="text-3xl sm:text-5xl font-heading font-extrabold text-white"
+          >
+            BUILD THE NEXT CHAPTER.
+          </h2>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Open to opportunities in backend development, distributed system
+            architecture, payment infrastructure engineering, and database
+            optimization.
+          </p>
+        </div>
+
+        <!-- Direct Contact Actions -->
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <a
+            href="mailto:gheewalaram@gmail.com"
+            class="haptic-pulse px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-black font-heading font-bold text-sm tracking-wide uppercase flex items-center gap-3 shadow-2xl shadow-cyan-500/30 hover:scale-105 transition-all"
+          >
+            <i data-lucide="mail" class="w-5 h-5"></i>
+            <span>gheewalaram@gmail.com</span>
+          </a>
+
+          <!-- <a
+            href="tel:+916356155335"
+            class="haptic-pulse px-6 py-4 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-500/50 text-slate-200 font-heading font-semibold text-sm tracking-wide uppercase flex items-center gap-2 hover:bg-slate-800 transition-all"
+          >
+            <i data-lucide="phone" class="w-4 h-4 text-cyan-400"></i>
+            <span>+91 6356155335</span>
+          </a> -->
+
+          <a
+            href="https://www.linkedin.com/in/ram-gheewala"
+            target="_blank"
+            rel="noopener"
+            class="haptic-pulse px-6 py-4 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-500/50 text-slate-200 font-heading font-semibold text-sm tracking-wide uppercase flex items-center gap-2 hover:bg-slate-800 transition-all"
+          >
+            <i data-lucide="linkedin" class="w-4 h-4 text-cyan-400"></i>
+            <span>LinkedIn Profile</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer
+      class="relative z-10 py-8 px-4 sm:px-8 border-t border-slate-800/80 text-center text-xs font-mono text-slate-500"
+    >
+      <div
+        class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4"
+      >
+        <div>
+          <span class="text-slate-300 font-bold">RAM GHEEWALA</span> • Full
+          Stack Developer & System Engineer
+        </div>
+        <!-- <div>Verified factual portfolio derived directly from LinkedIn.</div> -->
+        <div>
+          &copy; <span id="year"></span> Ram Gheewala. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPTS -->
+    <script>
+      // Set Year
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Initialize Lucide Icons
+      lucide.createIcons();
+
+      // Mobile Navigation Toggle
+      const mobileBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      mobileBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+
+      // Custom Cursor Movement
+      const cursor = document.getElementById("custom-cursor");
+      window.addEventListener("mousemove", (e) => {
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+      });
+
+      // Tactile Vibrational Haptic Feedback (Supported Devices)
+      document.querySelectorAll(".haptic-pulse").forEach((el) => {
+        el.addEventListener("click", () => {
+          if ("vibrate" in navigator) {
+            navigator.vibrate(15);
+          }
+        });
+      });
+
+      // Dynamic Role Matrix Data
+      const roles = [
+        {
+          title: "Junior .NET Developer",
+          company: "VSI Infotech LLP",
+          period: "Jun 2025 – Present",
+          location: "Surat, Gujarat, India (On-site)",
+          description:
+            "Engineered multi-region pay-in / payout gateway services in ASP.NET Core processing ~50,000+ transactions/day. Diagnosed and resolved high-severity production incidents across deposits, callbacks, and refunds, cutting mean resolution time by ~30%.",
+          highlights: [
+            "Designed relational database indexing strategies and optimized complex SQL Server stored procedures powering analytics dashboards, reducing report query latency by 40%.",
+            "Implemented .NET background services for automated payout-retry and settlement-batch processing with idempotency and real-time failure alerting.",
+            "Built and maintained resilient API abstractions across Stripe, Razorpay, and Flutterwave payment rails.",
+          ],
+          stack: [
+            "ASP.NET Core",
+            "C#",
+            "SQL Server",
+            "Redis",
+            "Hangfire",
+            "Clean Architecture",
+            "CQRS",
+          ],
+        },
+        {
+          title: "ASP.NET Developer",
+          company: "Tenacious Techies",
+          period: "Jan 2025 – May 2025",
+          location: "Surat, Gujarat, India (On-site)",
+          description:
+            "Backend developer on FoodChow, a production food-delivery SaaS platform.",
+          highlights: [
+            "Integrated Porter, Pidge, and Uber Direct delivery providers behind a unified abstraction layer with real-time order tracking status updates.",
+            "Built a unified refund API across Stripe, Razorpay, and RazorpayX.",
+            "Rewrote admin reporting queries, cutting execution time from 12s to under 2s.",
+          ],
+          stack: [
+            "ASP.NET Core",
+            "ASP.NET MVC",
+            "SQL Server",
+            "Stripe API",
+            "RazorpayX",
+            "REST APIs",
+          ],
+        },
+        {
+          title: "ASP.NET Core Intern",
+          company: "Toshal Infotech",
+          period: "Jan 2024 – Dec 2024",
+          location: "Surat, Gujarat, India (On-site)",
+          description:
+            "Built and tested RESTful APIs in ASP.NET Core with a focus on high reliability, efficiency, and database performance.",
+          highlights: [
+            "Constructed RESTful APIs utilizing ASP.NET Core, PostgreSQL, Redis, and Dapper ORM.",
+            "Built YouTube OAuth 2.0 API upload integration workflows.",
+            "Optimized data access with stored procedures for a ~20% execution efficiency gain.",
+          ],
+          stack: [
+            "ASP.NET Core",
+            "PostgreSQL",
+            "Dapper ORM",
+            "Redis",
+            "OAuth 2.0",
+            "Design Patterns",
+          ],
+        },
+      ];
+
+      function selectRole(index) {
+        // Update node styling
+        document.querySelectorAll(".role-selector-card").forEach((node, i) => {
+          if (i === index) {
+            node.classList.add(
+              "border-cyan-500/80",
+              "shadow-lg",
+              "shadow-cyan-500/10",
+            );
+            node.classList.remove("opacity-70");
+          } else {
+            node.classList.remove(
+              "border-cyan-500/80",
+              "shadow-lg",
+              "shadow-cyan-500/10",
+            );
+            node.classList.add("opacity-70");
+          }
+        });
+
+        // Inject role details
+        const role = roles[index];
+        const panel = document.getElementById("role-detail-panel");
+        panel.innerHTML = `
+                <div>
+                    <div class="flex items-center justify-between text-xs font-mono text-cyan-400 mb-1">
+                        <span>${role.period}</span>
+                        <span>${role.location}</span>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold text-white">${role.title}</h3>
+                    <p class="text-sm font-mono text-slate-400">${role.company}</p>
+                </div>
+
+                <p class="text-xs text-slate-300 leading-relaxed">${role.description}</p>
+
+                <div class="space-y-3">
+                    <h4 class="text-xs font-mono uppercase text-cyan-400 tracking-wider">Key Factual Deliverables & Impact</h4>
+                    <ul class="space-y-2">
+                        ${role.highlights
+                          .map(
+                            (h) => `
+                            <li class="flex items-start gap-2 text-xs text-slate-300 leading-relaxed">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-cyan-400 shrink-0 mt-0.5"></i>
+                                <span>${h}</span>
+                            </li>
+                        `,
+                          )
+                          .join("")}
+                    </ul>
+                </div>
+
+                <div class="pt-2">
+                    <h4 class="text-xs font-mono uppercase text-slate-400 tracking-wider mb-2">Technologies Used</h4>
+                    <div class="flex flex-wrap gap-2">
+                        ${role.stack
+                          .map(
+                            (s) => `
+                            <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-700 text-slate-300 text-xs font-mono">${s}</span>
+                        `,
+                          )
+                          .join("")}
+                    </div>
+                </div>
+            `;
+        lucide.createIcons();
+      }
+
+      // Initialize default role selection
+      selectRole(0);
+
+      // Dynamic Interactive Canvas Background Script
+      const canvas = document.getElementById("bg-canvas");
+      const ctx = canvas.getContext("2d");
+      let particles = [];
+      let mouse = { x: null, y: null, radius: 150 };
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+
+      window.addEventListener("mousemove", (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+      });
+
+      class Particle {
+        constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.size = Math.random() * 2 + 1;
+          this.baseX = this.x;
+          this.baseY = this.y;
+          this.vx = (Math.random() - 0.5) * 0.5;
+          this.vy = (Math.random() - 0.5) * 0.5;
+        }
+
+        draw() {
+          ctx.fillStyle = "rgba(0, 240, 255, 0.4)";
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.closePath();
+          ctx.fill();
+        }
+
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+
+          if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+          if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+          // Mouse interaction
+          if (mouse.x && mouse.y) {
+            let dx = mouse.x - this.x;
+            let dy = mouse.y - this.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < mouse.radius) {
+              let force = (mouse.radius - distance) / mouse.radius;
+              let directionX = dx / distance;
+              let directionY = dy / distance;
+              this.x -= directionX * force * 3;
+              this.y -= directionY * force * 3;
+            }
+          }
+        }
+      }
+
+      function initParticles() {
+        particles = [];
+        let count = Math.min(Math.floor(window.innerWidth / 15), 80);
+        for (let i = 0; i < count; i++) {
+          particles.push(new Particle());
+        }
+      }
+      initParticles();
+
+      function animateCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw connecting lines
+        for (let a = 0; a < particles.length; a++) {
+          for (let b = a; b < particles.length; b++) {
+            let dx = particles[a].x - particles[b].x;
+            let dy = particles[a].y - particles[b].y;
+            let dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 120) {
+              ctx.strokeStyle = `rgba(0, 240, 255, ${1 - (dist / 120) * 0.8})`;
+              ctx.lineWidth = 0.5;
+              ctx.beginPath();
+              ctx.moveTo(particles[a].x, particles[a].y);
+              ctx.lineTo(particles[b].x, particles[b].y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        particles.forEach((p) => {
+          p.update();
+          p.draw();
+        });
+
+        requestAnimationFrame(animateCanvas);
+      }
+      animateCanvas();
+    </script>
+  </body>
+</html>
