@@ -1,0 +1,236 @@
+/* ==========================================================================
+   Ram Gheewala — Portfolio Styles
+   Utility classes come from Tailwind (CDN); this file holds the custom
+   components and effects Tailwind doesn't cover.
+   ========================================================================== */
+
+/* ---------- Design tokens ---------- */
+:root {
+  --color-bg: #07090e;
+  --color-surface: #0e121a;
+  --color-card: #141a24;
+  --color-border: #202b3c;
+  --color-cyan: #00f0ff;
+  --color-blue: #3b82f6;
+  --color-purple: #8b5cf6;
+  --color-emerald: #10b981;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-cyan);
+}
+
+/* Offset anchor jumps so the sticky header doesn't cover section titles */
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
+/* ---------- Glassmorphism ---------- */
+.glass-panel {
+  background: rgba(14, 18, 26, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: linear-gradient(
+    135deg,
+    rgba(20, 26, 36, 0.8) 0%,
+    rgba(14, 18, 26, 0.6) 100%
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: all 0.3s var(--ease-out-expo);
+}
+
+.glass-card:hover {
+  border-color: rgba(0, 240, 255, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(0, 240, 255, 0.15);
+  transform: translateY(-4px);
+}
+
+/* ---------- Text gradients ---------- */
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #ffffff 0%, #a5f3fc 50%, var(--color-cyan) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-blue {
+  background: linear-gradient(
+    135deg,
+    var(--color-cyan) 0%,
+    var(--color-blue) 50%,
+    var(--color-purple) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ---------- Reusable components ---------- */
+
+/* Section eyebrow label ("01. Career Evolution") */
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  color: #22d3ee;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.section-eyebrow::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: #22d3ee;
+}
+
+/* Nav links */
+.nav-link {
+  padding: 0.25rem 0;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.nav-link:hover {
+  color: #22d3ee;
+  border-bottom-color: #22d3ee;
+}
+
+/* Skill / tech chip */
+.chip {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  background: #0f172a;
+  border: 1px solid #334155;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+.chip--sm {
+  padding: 0.25rem 0.625rem;
+  border-radius: 0.25rem;
+  color: #cbd5e1;
+}
+.chip--pill {
+  border-radius: 9999px;
+  color: #cbd5e1;
+}
+.chip--accent {
+  background: rgba(8, 51, 68, 0.8);
+  border-color: #155e75;
+  color: #67e8f9;
+}
+
+/* ---------- Career timeline selector ---------- */
+.role-selector-card {
+  width: 100%;
+  text-align: left;
+  opacity: 0.7;
+}
+.role-selector-card:hover,
+.role-selector-card:focus-visible {
+  opacity: 1;
+}
+.role-selector-card.is-active {
+  opacity: 1;
+  border-color: rgba(6, 182, 212, 0.8);
+  box-shadow: 0 10px 15px -3px rgba(6, 182, 212, 0.1);
+}
+.role-selector-card:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 2px;
+}
+
+/* Fade the detail panel when switching roles */
+#role-detail-panel.is-switching {
+  opacity: 0;
+  transform: translateY(6px);
+}
+#role-detail-panel {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* ---------- Tactile haptic pulse ---------- */
+.haptic-pulse {
+  position: relative;
+}
+.haptic-pulse::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  border: 1px solid var(--color-cyan);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+.haptic-pulse:active::after {
+  inset: -8px;
+  opacity: 0.8;
+  transition: 0s;
+}
+
+/* ---------- Ambient canvas background ---------- */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ---------- Custom cursor ---------- */
+#custom-cursor {
+  pointer-events: none;
+  position: fixed;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.2s,
+    height 0.2s,
+    background-color 0.2s,
+    border-color 0.2s;
+}
+
+/* Hide custom cursor on touch devices */
+@media (pointer: coarse) {
+  #custom-cursor {
+    display: none !important;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  #bg-canvas {
+    display: none;
+  }
+}
